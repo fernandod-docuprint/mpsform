@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-relevamiento MPS — Docuprint</title>
+<link href="https://db.onlinewebfonts.com/c/b7b82402ef622d152ae7b24c549f9865?family=Texta+Alt+W00+Black" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rojo: #C00000;
+    --rojo-oscuro: #8B0000;
+    --rojo-claro: #CC1111;
+    --negro: #1A1A1A;
+    --gris-oscuro: #2C2C2C;
+    --gris-medio: #666;
+    --gris-claro: #F4F4F4;
+    --blanco: #FFFFFF;
+    --borde: #E0E0E0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--gris-claro);
+    color: var(--negro);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--negro);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: var(--rojo);
+  }
+  .header-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 32px 28px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .logo-text {
+    font-family: 'Texta Alt W00 Black', 'Barlow', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--blanco);
+    letter-spacing: 2px;
+  }
+  
+  .badge-tiempo {
+    background: var(--rojo);
+    color: var(--blanco);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--rojo);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -60px; bottom: -60px;
+    width: 220px; height: 220px;
+    border: 40px solid rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .hero-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 32px 40px 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-family: 'Texta Alt W00 Black', 'Barlow', sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--blanco);
+    line-height: 1.1;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+    font-size: 28px;
+    display: block;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-bottom: 4px;
+  }
+  .hero p {
+    color: rgba(255,255,255,0.88);
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 480px;
+  }
+  .hero-steps {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .step {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--blanco);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .step-num {
+    background: var(--blanco);
+    color: var(--rojo);
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* FORM CONTAINER */
+  .form-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 16px 48px;
+  }
+
+  /* SECTION CARD */
+  .section-card {
+    background: var(--blanco);
+    border-radius: 4px;
+    margin-top: 20px;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+  }
+  .section-header {
+    background: var(--negro);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-num {
+    background: var(--rojo);
+    color: var(--blanco);
+    font-family: 'Texta Alt W00 Black', 'Barlow', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+  }
+  .section-title {
+    color: var(--blanco);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .section-body { padding: 28px 28px 24px; }
+
+  /* FIELD */
+  .field { margin-bottom: 22px; }
+  .field:last-child { margin-bottom: 0; }
+  .field-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--negro);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .field-label .req {
+    color: var(--rojo);
+    margin-left: 3px;
+    font-weight: 700;
+  }
+  .field-hint {
+    font-size: 12px;
+    color: var(--gris-medio);
+    margin-bottom: 8px;
+    margin-top: -4px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    border: 1.5px solid var(--borde);
+    border-radius: 4px;
+    padding: 11px 14px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    color: var(--negro);
+    background: var(--blanco);
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  textarea:focus {
+    border-color: var(--rojo);
+  }
+  textarea { resize: vertical; min-height: 90px; }
+
+  /* RADIO / CHECKBOX */
+  .options { display: flex; flex-direction: column; gap: 9px; }
+  .option-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px 14px;
+    border-radius: 4px;
+    border: 1.5px solid var(--borde);
+    transition: all 0.15s;
+  }
+  .option-item:hover {
+    border-color: var(--rojo);
+    background: #fff5f6;
+  }
+  .option-item input[type="radio"],
+  .option-item input[type="checkbox"] {
+    width: 16px; height: 16px;
+    margin-top: 1px;
+    accent-color: var(--rojo);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .option-text {
+    font-size: 14px;
+    color: var(--negro);
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  /* GRID DOS COLUMNAS */
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+  @media (max-width: 480px) { .options-grid { grid-template-columns: 1fr; } }
+
+  /* SUBMIT */
+  .submit-area {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+    margin-top: 20px;
+    padding: 28px;
+    text-align: center;
+  }
+  .btn-submit {
+    background: var(--rojo);
+    color: var(--blanco);
+    border: none;
+    font-family: 'Texta Alt W00 Black', 'Barlow', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 16px 48px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    width: 100%;
+    max-width: 360px;
+  }
+  .btn-submit:hover { background: var(--rojo-oscuro); transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+  .submit-nota {
+    font-size: 12px;
+    color: var(--gris-medio);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+
+  /* FOOTER FIRMA */
+  @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,800;0,900&family=Barlow+Condensed:wght@700;800;900&display=swap');
+
+  /* ── FIRMA ACTUALIZADA ── */
+  .firma { max-width: 720px; margin: 24px auto 0; padding: 0 16px 40px; }
+  .firma-card {
+    background: #1A1A1A;
+    border-left: 5px solid #C00000;
+    border-radius: 4px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .firma-nombre {
+    font-family: 'Texta Alt W00 Black', 'Barlow', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.1;
+    letter-spacing: -0.3px;
+  }
+  .firma-nombre span {
+    display: block;
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #C00000;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-top: 4px;
+  }
+  .firma-datos { display: flex; flex-direction: column; gap: 6px; }
+  .firma-dato {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    color: #B0B0B0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .firma-icon {
+    width: 16px; height: 16px;
+    background: #C00000;
+    border-radius: 3px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .firma-icon svg { width: 9px; height: 9px; fill: white; }
+  .firma-cta {
+    display: inline-block;
+    background: #C00000;
+    color: #FFFFFF;
+    font-family: 'Texta Alt W00 Black', 'Barlow', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 11px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    align-self: center;
+  }
+  .firma-cta:hover { background: #8B0000; }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-text">DOCUPRINT</div>
+    <div class="badge-tiempo">⏱ 2 minutos</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <h1>
+      <em>Pre-relevamiento</em>
+      Impresión Administrada
+    </h1>
+    <p>Completá este formulario rápido y te armamos una <strong>cotización de referencia sin compromiso</strong>. Sin visita, sin llamada previa.</p>
+    <div class="hero-steps">
+      <div class="step"><div class="step-num">1</div>Completás en 2 min</div>
+      <div class="step"><div class="step-num">2</div>Analizamos tu situación</div>
+      <div class="step"><div class="step-num">3</div>Te enviamos la cotización</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap">
+  <form id="formMPS" onsubmit="enviarForm(event)">
+
+    <!-- SECCIÓN 1 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">01</div>
+        <div class="section-title">Tu empresa</div>
+      </div>
+      <div class="section-body">
+        <div class="field">
+          <label class="field-label">Razón Social / Nombre de la empresa <span class="req">*</span></label>
+          <input type="text" name="empresa" required placeholder="Ej: Mateu Sports SA">
+        </div>
+        <div class="field">
+          <label class="field-label">Rubro / Industria <span class="req">*</span></label>
+          <input type="text" name="rubro" required placeholder="Ej: Retail deportivo">
+        </div>
+        <div class="field">
+          <label class="field-label">Nombre completo y cargo <span class="req">*</span></label>
+          <input type="text" name="contacto" required placeholder="Ej: Mauro Galdámez — Gerente de Compras">
+        </div>
+        <div class="field">
+          <label class="field-label">Email <span class="req">*</span></label>
+          <input type="email" name="email" required placeholder="mauro@empresa.com.ar">
+        </div>
+        <div class="field">
+          <label class="field-label">Teléfono de contacto <span class="req">*</span></label>
+          <input type="text" name="telefono" required placeholder="+54 9 11 xxxx-xxxx">
+        </div>
+        <div class="field">
+          <label class="field-label">Cantidad de empleados <span class="req">*</span></label>
+          <div class="options options-grid">
+            <label class="option-item"><input type="radio" name="empleados" value="1-10" required><span class="option-text">1 a 10</span></label>
+            <label class="option-item"><input type="radio" name="empleados" value="11-50"><span class="option-text">11 a 50</span></label>
+            <label class="option-item"><input type="radio" name="empleados" value="51-100"><span class="option-text">51 a 100</span></label>
+            <label class="option-item"><input type="radio" name="empleados" value="101-500"><span class="option-text">101 a 500</span></label>
+            <label class="option-item"><input type="radio" name="empleados" value="500+"><span class="option-text">Más de 500</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">Cantidad de sucursales u oficinas</label>
+          <input type="text" name="sucursales" placeholder="Ej: 3 sucursales en La Plata y CABA">
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 2 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <div class="section-title">Situación actual</div>
+      </div>
+      <div class="section-body">
+        <div class="field">
+          <label class="field-label">¿Tienen equipos de impresión hoy? <span class="req">*</span></label>
+          <div class="options">
+            <label class="option-item"><input type="radio" name="equipos" value="propios" required><span class="option-text">Sí, propios</span></label>
+            <label class="option-item"><input type="radio" name="equipos" value="alquilados"><span class="option-text">Sí, alquilados / bajo contrato</span></label>
+            <label class="option-item"><input type="radio" name="equipos" value="no"><span class="option-text">No tenemos equipos</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">¿Tienen contrato vigente con algún proveedor? <span class="req">*</span></label>
+          <div class="options">
+            <label class="option-item"><input type="radio" name="contrato" value="si-corto" required><span class="option-text">Sí — vence en menos de 6 meses</span></label>
+            <label class="option-item"><input type="radio" name="contrato" value="si-largo"><span class="option-text">Sí — vence en más de 6 meses</span></label>
+            <label class="option-item"><input type="radio" name="contrato" value="no"><span class="option-text">No tenemos contrato</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">Principal problema con la solución actual</label>
+          <div class="options">
+            <label class="option-item"><input type="checkbox" name="problema" value="costos"><span class="option-text">Costos elevados de insumos / tóner</span></label>
+            <label class="option-item"><input type="checkbox" name="problema" value="averias"><span class="option-text">Averías frecuentes</span></label>
+            <label class="option-item"><input type="checkbox" name="problema" value="soporte"><span class="option-text">Falta de soporte técnico</span></label>
+            <label class="option-item"><input type="checkbox" name="problema" value="obsoletos"><span class="option-text">Equipos obsoletos</span></label>
+            <label class="option-item"><input type="checkbox" name="problema" value="actualizar"><span class="option-text">No tengo problemas, pero quiero actualizar</span></label>
+            <label class="option-item"><input type="checkbox" name="problema" value="sin-equipos"><span class="option-text">No tenemos equipos todavía</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 3 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">03</div>
+        <div class="section-title">Volumen y necesidades</div>
+      </div>
+      <div class="section-body">
+        <div class="field">
+          <label class="field-label">Volumen mensual en BLANCO Y NEGRO <span class="req">*</span></label>
+          <div class="options">
+            <label class="option-item"><input type="radio" name="vol_bn" value="menos500" required><span class="option-text">Menos de 500 páginas/mes</span></label>
+            <label class="option-item"><input type="radio" name="vol_bn" value="500-2000"><span class="option-text">500 a 2.000 páginas/mes</span></label>
+            <label class="option-item"><input type="radio" name="vol_bn" value="2001-5000"><span class="option-text">2.001 a 5.000 páginas/mes</span></label>
+            <label class="option-item"><input type="radio" name="vol_bn" value="5001-10000"><span class="option-text">5.001 a 10.000 páginas/mes</span></label>
+            <label class="option-item"><input type="radio" name="vol_bn" value="mas10000"><span class="option-text">Más de 10.000 páginas/mes</span></label>
+            <label class="option-item"><input type="radio" name="vol_bn" value="nose"><span class="option-text">No sé / necesito ayuda para estimarlo</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">¿Imprimen en COLOR? <span class="req">*</span></label>
+          <div class="options">
+            <label class="option-item"><input type="radio" name="color" value="no" required><span class="option-text">No, solo blanco y negro</span></label>
+            <label class="option-item"><input type="radio" name="color" value="poco"><span class="option-text">Sí, poco (menos de 500 pág/mes)</span></label>
+            <label class="option-item"><input type="radio" name="color" value="bastante"><span class="option-text">Sí, bastante (más de 500 pág/mes)</span></label>
+            <label class="option-item"><input type="radio" name="color" value="nose"><span class="option-text">No sé</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">Funciones que necesitan <span class="req">*</span></label>
+          <div class="options options-grid">
+            <label class="option-item"><input type="checkbox" name="func" value="impresion"><span class="option-text">Impresión</span></label>
+            <label class="option-item"><input type="checkbox" name="func" value="copia"><span class="option-text">Copia</span></label>
+            <label class="option-item"><input type="checkbox" name="func" value="escaneo"><span class="option-text">Escaneo</span></label>
+            <label class="option-item"><input type="checkbox" name="func" value="fax"><span class="option-text">Fax</span></label>
+            <label class="option-item"><input type="checkbox" name="func" value="scan-email"><span class="option-text">Escaneo a email / red</span></label>
+            <label class="option-item"><input type="checkbox" name="func" value="duplex"><span class="option-text">Doble faz automático</span></label>
+            <label class="option-item"><input type="checkbox" name="func" value="movil"><span class="option-text">Impresión desde celular</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 4 -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-num">04</div>
+        <div class="section-title">Contratación</div>
+      </div>
+      <div class="section-body">
+        <div class="field">
+          <label class="field-label">¿Cómo prefieren adquirirlo? <span class="req">*</span></label>
+          <div class="options">
+            <label class="option-item"><input type="radio" name="modalidad" value="renta" required><span class="option-text">Renta mensual (sin inversión inicial)</span></label>
+            <label class="option-item"><input type="radio" name="modalidad" value="compra"><span class="option-text">Compra directa</span></label>
+            <label class="option-item"><input type="radio" name="modalidad" value="abierto"><span class="option-text">Abierto a evaluar opciones</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">¿En qué plazo necesitan la solución? <span class="req">*</span></label>
+          <div class="options">
+            <label class="option-item"><input type="radio" name="plazo" value="urgente" required><span class="option-text">Urgente (menos de 2 semanas)</span></label>
+            <label class="option-item"><input type="radio" name="plazo" value="corto"><span class="option-text">Corto plazo (1 a 3 meses)</span></label>
+            <label class="option-item"><input type="radio" name="plazo" value="futuro"><span class="option-text">Planificación a futuro</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">¿Algo más que quieras contarnos?</label>
+          <textarea name="adicional" placeholder="Cualquier dato adicional que considere relevante para elaborar su cotización..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" id="btnSubmit">Enviar y recibir cotización →</button>
+      <p class="submit-nota">Sus datos son confidenciales y solo serán utilizados para elaborar la cotización.<br>Nos pondremos en contacto dentro de las próximas 24 horas hábiles.</p>
+    </div>
+
+  </form>
+</div>
+
+
+<!-- PANTALLA ÉXITO -->
+<div id="submitSuccess" style="display:none; background:#fff; border:1px solid #e0e0e0; border-radius:4px; margin-top:20px; padding:48px 32px; text-align:center;">
+  <div style="width:64px;height:64px;background:#C00000;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M6 15l6 6 12-12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <h2 style="font-family:'Texta Alt W00 Black','Barlow',sans-serif;font-size:26px;font-weight:900;color:#1A1A1A;margin-bottom:12px;">¡Recibimos tu consulta!</h2>
+  <p style="font-family:'Barlow',sans-serif;font-size:15px;color:#666;line-height:1.7;max-width:400px;margin:0 auto 28px;">
+    En las próximas <strong style="color:#1A1A1A;">24 horas hábiles</strong> nos ponemos en contacto con una cotización de referencia personalizada.
+  </p>
+  <div style="background:#f4f4f4;border-radius:4px;padding:16px 20px;display:inline-block;text-align:left;">
+    <p style="font-family:'Barlow',sans-serif;font-size:13px;color:#444;margin:0 0 4px;"><strong>Fernando Daziano</strong> — Desarrollo Comercial</p>
+    <p style="font-family:'Barlow',sans-serif;font-size:13px;color:#666;margin:0;">fernandod@docuprint.com &nbsp;|&nbsp; +54 9 11 5463-7932</p>
+  </div>
+</div>
+
+<!-- FIRMA -->
+<div class="firma">
+  <div class="firma-card">
+    <div class="firma-nombre">
+      Fernando<br>Daziano
+      <span>Desarrollo Comercial</span>
+    </div>
+    <div class="firma-datos">
+      <div class="firma-dato">
+        <div class="firma-icon"><svg viewBox="0 0 10 10"><path d="M1 2h8v6H1V2zm4 3.5L2 3h6L5 5.5z"/></svg></div>
+        fernandod@docuprint.com
+      </div>
+      <div class="firma-dato">
+        <div class="firma-icon"><svg viewBox="0 0 10 10"><path d="M8.5 6.5c-.5.5-1 1-1.5 1C5.5 7.5 2.5 4.5 2.5 3c0-.5.5-1 1-1.5L5 3 4 4.5C4.5 5.5 5.5 6 6.5 6L8 5l.5 1.5z"/></svg></div>
+        +54 9 11 5463-7932
+      </div>
+    </div>
+    <a href="https://www.docuprint.com.ar/impresion-dentro" target="_blank" class="firma-cta">Ver soluciones MPS →</a>
+  </div>
+</div>
+
+    <a href="https://www.docuprint.com.ar/impresion-dentro" target="_blank" class="firma-cta">Ver soluciones MPS →</a>
+  </div>
+</div>
+
+    <a href="https://www.dss.com.ar" target="_blank" class="firma-web">dss.com.ar</a>
+  </div>
+</div>
+
+<script>
+const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSc8CgSvF6xjAsj5dDCeCUzLcMgRhFjNQHqiveHXEgGttUpgcQ/formResponse';
+
+const ENTRY_MAP = {
+  empresa:    'entry.1256662230',
+  rubro:      'entry.700030815',
+  contacto:   'entry.953996275',
+  telefono:   'entry.783235532',
+  empleados:  'entry.152984266',
+  sucursales: 'entry.1299622885',
+  equipos:    'entry.2006189854',
+  contrato:   'entry.823877788',
+  problemas:  'entry.1580907634',
+  vol_bn:     'entry.2109995687',
+  color:      'entry.1386824927',
+  func:       'entry.1849934054',
+  modalidad:  'entry.1189788820',
+  plazo:      'entry.1929690001',
+  adicional:  'entry.652391196'
+};
+
+function updateProgress() {
+  var inputs = document.querySelectorAll('input[required]');
+  var groups = {}, textFilled = 0, textTotal = 0;
+  inputs.forEach(function(inp) {
+    if (inp.type === 'radio' || inp.type === 'checkbox') {
+      if (!groups[inp.name]) groups[inp.name] = false;
+      if (inp.checked) groups[inp.name] = true;
+    } else {
+      textTotal++;
+      if (inp.value.trim()) textFilled++;
+    }
+  });
+  var groupFilled = Object.values(groups).filter(Boolean).length;
+  var total = Object.keys(groups).length + textTotal;
+  var filled = groupFilled + textFilled;
+  var pct = total > 0 ? Math.min(100, Math.round((filled / total) * 100)) : 0;
+  var bar = document.getElementById('progress');
+  if (bar) bar.style.width = pct + '%';
+}
+
+async function enviarForm(e) {
+  e.preventDefault();
+  var form = document.getElementById('formMPS');
+  var btn  = document.getElementById('btnSubmit');
+
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  var data = new FormData(form);
+  var fd   = new FormData();
+
+  // Texto simple
+  ['empresa','rubro','contacto','telefono','sucursales','adicional'].forEach(function(n) {
+    var v = data.get(n); if (v) fd.append(ENTRY_MAP[n], v);
+  });
+
+  // Email capturado por Google automáticamente
+  var em = data.get('email');
+  if (em) fd.append('email_address', em);
+
+  // Radio — un solo valor
+  ['empleados','equipos','contrato','vol_bn','color','modalidad','plazo'].forEach(function(n) {
+    var v = data.get(n); if (v) fd.append(ENTRY_MAP[n], v);
+  });
+
+  // Checkboxes — múltiples valores mismo entry
+  ['problemas','func'].forEach(function(n) {
+    data.getAll(n).forEach(function(v) { fd.append(ENTRY_MAP[n], v); });
+  });
+
+  try {
+    await fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: fd });
+  } catch(err) {
+    // no-cors siempre genera error de red — los datos se enviaron igual
+  }
+
+  // Mostrar pantalla de éxito
+  form.style.display = 'none';
+  document.getElementById('submitSuccess').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('change', updateProgress);
+document.addEventListener('input', updateProgress);
+updateProgress();
+</script>
+</body>
+</html>
