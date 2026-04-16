@@ -597,38 +597,8 @@
       </div>
       <div class="firma-dato">
         <div class="firma-icon"><svg viewBox="0 0 10 10"><path d="M8.5 6.5c-.5.5-1 1-1.5 1C5.5 7.5 2.5 4.5 2.5 3c0-.5.5-1 1-1.5L5 3 4 4.5C4.5 5.5 5.5 6 6.5 6L8 5l.5 1.5z"/></svg></div>
-        +54<!-- iframe oculto — receptor del POST a Google Forms -->
-<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
-  onload="iframeLoaded()"></iframe>
-
-<script>
-var formSubmitted = false;
-
-function iframeLoaded() {
-  if (!formSubmitted) return;
-  // Google Forms respondió — mostrar pantalla de éxito
-  document.getElementById('formMPS').style.display = 'none';
-  document.getElementById('submitSuccess').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function enviarForm(e) {
-  e.preventDefault();
-  var form   = document.getElementById('formMPS');
-  var btn    = document.getElementById('btnSubmit');
-
-  btn.disabled    = true;
-  btn.textContent = 'Enviando...';
-  formSubmitted   = true;
-
-  // Cambiar target del form al iframe oculto y action al endpoint de Google
-  form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfK2XHUg8fZEYOEXCo_K4iJtbU3U5PLAL1fSo-dM7TI05Gq_A/formResponse';
-  form.target = 'hidden_iframe';
-  form.method = 'POST';
-
-  // Submit nativo del form — bypasea CORS completamente
-  form.submit();
-}
+        +54<script>
+const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbz1LUgIed4FGr4mCEffKyJBE0dR_G7Kze7A9gftym1ykzpkLe1JHdLwx0pbfWzJBcfIlg/exec';
 
 function updateProgress() {
   var inputs = document.querySelectorAll('input[required]');
@@ -644,18 +614,61 @@ function updateProgress() {
   });
   var groupFilled = Object.values(groups).filter(Boolean).length;
   var total = Object.keys(groups).length + textTotal;
-  var filled = groupFilled + textFilled;
-  var pct = total > 0 ? Math.min(100, Math.round((filled / total) * 100)) : 0;
+  var pct = total > 0 ? Math.min(100, Math.round(((groupFilled + textFilled) / total) * 100)) : 0;
   var bar = document.getElementById('progress');
   if (bar) bar.style.width = pct + '%';
 }
 
-document.addEventListener('change', updateProgress);
-document.addEventListener('input', updateProgress);
-updateProgress();
-</script>});
+async function enviarForm(e) {
+  e.preventDefault();
+  var form = document.getElementById('formMPS');
+  var btn  = document.getElementById('btnSubmit');
+  btn.disabled    = true;
+  btn.textContent = 'Enviando...';
+
+  // Recoger todos los valores del form
+  var data = new FormData(form);
+  var payload = new URLSearchParams();
+
+  // Campos de texto simples — usar nombres legibles para la planilla
+  var fieldMap = {
+    'entry.311630956':  'empresa',
+    'entry.1309709900': 'rubro',
+    'entry.119760744':  'contacto',
+    'email_address':    'email',
+    'entry.1456876075': 'telefono',
+    'entry.1158554260': 'empleados',
+    'entry.1991413690': 'sucursales',
+    'entry.463658490':  'equipos',
+    'entry.1849106151': 'contrato',
+    'entry.1649778113': 'vol_bn',
+    'entry.878326810':  'color',
+    'entry.1078032515': 'modalidad',
+    'entry.1197479049': 'plazo',
+    'entry.274191736':  'adicional',
+  };
+
+  for (var [entryKey, friendlyName] of Object.entries(fieldMap)) {
+    var val = data.get(entryKey);
+    if (val) payload.append(friendlyName, val);
+  }
+
+  // Checkboxes — múltiples valores → unir con coma
+  var problemas = data.getAll('entry.1148325168');
+  if (problemas.length) payload.append('problemas', problemas.join(', '));
+
+  var func = data.getAll('entry.721380959');
+  if (func.length) payload.append('func', func.join(', '));
+
+  try {
+    await fetch(WEBAPP_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: payload.toString()
+    });
   } catch(err) {
-    // no-cors siempre genera error de red — los datos se enviaron igual
+    // no-cors siempre genera error de red aparente — los datos llegan igual
   }
 
   // Mostrar pantalla de éxito
